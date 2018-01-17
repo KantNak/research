@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import numpy as np
+from matplotlib import pyplot as plt
+import random
+from mpl_toolkits.mplot3d import Axes3D
+import sys
+
+tstate1 = np.array([1, 2, 42])
+tstate2 = np.array([1, 2, 9])
+tstate3 = np.array([1, -1, 11])
+
+for j in range (3):
+    #fig = plt.figure()
+    #ax = Axes3D(fig)
+    plt.figure()
+    states1 = []
+    if (j == 0):
+        emn = 10
+    elif (j == 1):
+        emn = 100
+    elif (j == 2):
+        emn = 1000
+    for i in range(emn):
+        while True:
+            cem1 = random.random() - 0.5
+            cem2 = random.random() - 0.5
+            r2 = np.sqrt(cem1**2 + cem2**2)
+            if (r2 < 0.5):
+                break
+            
+        cem = np.array([0,cem1,cem2])
+            
+        cstate1 = tstate1 + cem
+        cstate3 = tstate2 + cem
+        cstate2 = tstate3 + cem
+        
+        states1.append(cstate1)
+        #states1.append(cstate2)
+        #states1.append(cstate3)
+        
+    states1 = np.array(states1)
+    print(states1.shape)
+    X = np.array(states1[:,0])
+    Y = np.array(states1[:,1])
+    Z = np.array(states1[:,2])
+    #ax.scatter3D(X,Y,Z)
+    plt.scatter(Y,Z)
+    plt.gca().set_aspect('equal', adjustable='box')
+    plt.xlim(1.5, 2.5)
+    plt.ylim(41.5, 42.5)
+    plt.xlabel("y-axis", fontsize=14)
+    plt.ylabel("z-axis", fontsize=14)
+    if (j == 0):
+        plt.title("10 member")
+    elif (j == 1):
+        plt.title("100 member")
+    elif (j == 2):
+        plt.title("1000 member")
+        
+plt.show()
